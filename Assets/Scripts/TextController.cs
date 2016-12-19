@@ -37,21 +37,21 @@ public class TextController : MonoBehaviour {
 			stateFloor ();
 		} else if (playerState == States.closet_door) {
 			stateClosetDoor ();
-		}// else if (playerState == States.corridor_1){
-		//	stateCorridor_1();
-		//} else if (playerState == States.stairs_1){
-		//	stateStairs_1();
-		//} else if (playerState == States.in_closet){
-		//	stateInCloset();
-		//} else if (playerState == States.corridor_2){
-		//	stateCorridor_2();
-		//} else if (playerState == States.stairs_2){
-		//	stateStairs_2();
-		//} else if (playerState == States.corridor_3){
-		//	stateCorridor_3();
-		//} else if (playerState == States.courtyard){
-		//	stateCourtyard();
-		//}
+		} else if (playerState == States.corridor_1){
+			stateCorridor_1();
+		} else if (playerState == States.stairs_1){
+			stateStairs_1();
+		} else if (playerState == States.in_closet){
+			stateInCloset();
+		} else if (playerState == States.corridor_2){
+			stateCorridor_2();
+		} else if (playerState == States.stairs_2){
+			stateStairs_2();
+		} else if (playerState == States.corridor_3){
+			stateCorridor_3();
+		} else if (playerState == States.courtyard){
+			stateCourtyard();
+		}
 	}
 	//States
 	void stateCell (){
@@ -160,14 +160,58 @@ public class TextController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.R))		{playerState = States.corridor_0;}
 	}
 	//after bobby pin
-	void stateCorridor (){
+	void stateCorridor_1 (){
 		textDiscription.text = 	"The bobby pin is now in your pocket.\n " +
 								"You are standing in a dimly lit corridor. There is a closet door to the left and " +
 								"stairs at the end of the hallway.\n\n" +
-								"Press 'P' to try and pick the locked closet door\n" +
+								"Press 'P' to try and pick the locked closet door with the bobby pin\n" +
 								"Press 'S' to go up the stairs";
-		if (Input.GetKeyDown (KeyCode.C))		{playerState = States.closet_door;}
-		else if (Input.GetKeyDown (KeyCode.F))	{playerState = States.floor;}
-		else if (Input.GetKeyDown (KeyCode.S))	{playerState = States.stairs_0;}
+		if (Input.GetKeyDown (KeyCode.P))		{playerState = States.in_closet;}
+		else if (Input.GetKeyDown (KeyCode.S))	{playerState = States.stairs_1;}
+	}
+	void stateStairs_1 (){
+		textDiscription.text = 	"You approach the stairs but hear talking coming from up the stairwell. Looking at the bobby pin " +
+								"in your hand, you contemplate how one would use it to disable the guards... Nothing pleasent comes to mind.\n\n" +
+								"Press 'R' to return to the corridor";
+		if (Input.GetKeyDown (KeyCode.R))		{playerState = States.corridor_1;}
+
+	}
+	void stateInCloset (){
+		textDiscription.text = 	"You have succesfully use the bobby pin to pick the lock on the door. Once inside the " +
+								"closet you see a set of janitor's coveralls.\n\n" +
+								"Press 'C' to put on the Coveralls\n" +
+								"Press 'R' to return to the corridor";
+		if (Input.GetKeyDown (KeyCode.C))		{playerState = States.corridor_3;}
+		else if (Input.GetKeyDown (KeyCode.R))		{playerState = States.corridor_2;}
+	}
+	void stateCorridor_2 (){
+		textDiscription.text = 	"You are standing in a dimly lit corridor. The open closet door is to the left and " +
+								"the stairs are at the end of the hallway.\n\n" +
+								"Press 'C' to go back into the Closet\n" +
+								"Press 'S' to go up the stairs";
+		if (Input.GetKeyDown (KeyCode.C))		{playerState = States.in_closet;}
+		else if (Input.GetKeyDown (KeyCode.S))	{playerState = States.stairs_2;}
+	}
+	void stateStairs_2 (){
+		textDiscription.text = 	"You approach the stairs but hear talking coming from up the stairwell. You doubt someone in " +
+								"a prison outfit walking up the stairs will go unnoticed by those at the top. Better not risk it.\n\n" +
+								"Press 'R' to return to the corridor";
+		if (Input.GetKeyDown (KeyCode.R))		{playerState = States.corridor_2;}
+	}
+	void stateCorridor_3 (){
+		textDiscription.text = 	"You emerge from the closet dressed in the janitor's coveralls. The open closet door is to the left and " +
+								"the stairs are at the end of the hallway.\n\n" +
+								"This is silly, Press 'C' to go back into the closet and change\n" +
+								"Press 'S' to go up the stairs";
+		if (Input.GetKeyDown (KeyCode.C))		{playerState = States.in_closet;}
+		else if (Input.GetKeyDown (KeyCode.S))	{playerState = States.courtyard;}
+	}
+	void stateCourtyard (){
+		textDiscription.text = 	"You walk up the stairs, there are two guards at the top. You smile and nod as you walk by dressed in " +
+								"your coveralls. They nod back and continue to talk about last night's sports-ball game.\n\n" +
+								"Congratulations! You have escaped prison! That was easier than it probably should have been though. " +
+								"Perhaps a word with your state official about prison system funding.\n" +
+								"Press 'P' to play again";
+		if (Input.GetKeyDown (KeyCode.P))		{playerState = States.cell;}
 	}
 }
